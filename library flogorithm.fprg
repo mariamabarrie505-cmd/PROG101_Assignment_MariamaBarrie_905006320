@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="library flogorithmmm"/>
+        <attribute name="authors" value="maria"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-30 01:48:11 AM"/>
+        <attribute name="created" value="bWFyaWE7TEFQVE9QLUFNUVA5SEhFOzIwMjYtMTAtMjg7MDg6MjA6MzkgUE07Mjg5MQ=="/>
+        <attribute name="edited" value="bWFyaWE7TEFQVE9QLUFNUVA5SEhFOzIwMjYtMTAtMzA7MDE6NDg6MTEgQU07NDsyOTcz"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="choice" type="Integer" array="False" size=""/>
+            <declare name="StudentName, StudentID, VisitDate, SelectedDate" type="String" array="False" size=""/>
+            <declare name="DailyCount" type="Integer" array="False" size=""/>
+            <declare name="i, TotalRecords" type="Integer" array="False" size=""/>
+            <assign variable="TotalRecords" expression="0"/>
+            <assign variable="Choice" expression="0"/>
+            <while expression="Choice &lt;&gt;3">
+                <output expression="&quot;1. Register Visitor&quot;" newline="True"/>
+                <output expression="&quot;2. View Daily Records&quot;" newline="True"/>
+                <output expression="&quot;3. Exit&quot;" newline="True"/>
+                <input variable="Choice"/>
+                <if expression="Choice=1">
+                    <then>
+                        <input variable="StudentName"/>
+                        <input variable="StudentID"/>
+                        <input variable="VisitDate"/>
+                        <if expression="StudentName &lt;&gt; &quot;&quot; And StudentID &lt;&gt; &quot;&quot;">
+                            <then>
+                                <comment text="Save name, ID, date in VisitorRecords"/>
+                                <output expression="&quot;Visitor Registered Successfully&quot;" newline="True"/>
+                            </then>
+                            <else>
+                                <output expression="&quot;Name and Student ID are required&quot;" newline="True"/>
+                            </else>
+                        </if>
+                    </then>
+                    <else>
+                        <if expression="Choice=2">
+                            <then>
+                                <input variable="SelectedDate"/>
+                                <assign variable="DailyCount" expression="0"/>
+                                <for variable="i" start="1" end="TotalRecords" direction="inc" step="1">
+                                    <if expression="VisitDate = SelectedDate">
+                                        <then>
+                                            <output expression="&quot;Display record&quot;" newline="True"/>
+                                            <assign variable="DailyCount" expression="DailyCount + 1"/>
+                                        </then>
+                                        <else/>
+                                    </if>
+                                </for>
+                                <if expression="DailyCount = 0">
+                                    <then>
+                                        <output expression="&quot;No Records Available&quot;" newline="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                                <output expression="&quot;Total Visits: &quot;&amp; DailyCount" newline="True"/>
+                            </then>
+                            <else>
+                                <if expression="Choice=3">
+                                    <then>
+                                        <output expression="&quot;System Closed&quot;" newline="True"/>
+                                    </then>
+                                    <else>
+                                        <output expression="&quot;Invalid Option&quot;" newline="True"/>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+        </body>
+    </function>
+</flowgorithm>

@@ -1,0 +1,68 @@
+UNIVERSITY LIBRARY VISITOR REGISTRATION AND DAILY COUNTING SYSTEM
+PROG101 Assignment 1 - Pseudocode
+
+BEGIN Main
+    CONSTANT REGISTER_OPTION = 1
+    CONSTANT VIEW_OPTION = 2
+    CONSTANT EXIT_OPTION = 3
+    DECLARE choice, DailyCount, TotalRecords, i AS Integer
+    DECLARE StudentName, StudentID, VisitDate, SelectedDate AS String
+    DECLARE visitorRecords AS List of records (StudentName, StudentID, VisitDate)
+    SET TotalRecords = 0
+    SET choice = 0
+    WHILE choice <> EXIT_OPTION DO
+        CALL DisplayMenu()
+        INPUT choice
+        IF choice = REGISTER_OPTION THEN
+            CALL RegisterVisitor()
+        ELSE IF choice = VIEW_OPTION THEN
+            CALL ViewDailyRecords()
+        ELSE IF choice = EXIT_OPTION THEN
+            OUTPUT "System Closed"
+        ELSE
+            OUTPUT "Invalid Option"
+        END IF
+    END WHILE
+END Main
+
+PROCEDURE DisplayMenu()
+    OUTPUT "1. Register Visitor"
+    OUTPUT "2. View Daily Records"
+    OUTPUT "3. Exit"
+END PROCEDURE
+
+PROCEDURE RegisterVisitor()
+    INPUT StudentName
+    INPUT StudentID
+    INPUT VisitDate
+    IF IsValidVisitor(StudentName, StudentID) = True THEN
+        SAVE StudentName, StudentID, VisitDate in visitorRecords
+        SET TotalRecords = TotalRecords + 1
+        OUTPUT "Visitor Registered Successfully"
+    ELSE
+        OUTPUT "Name and Student ID are required"
+    END IF
+END PROCEDURE
+
+FUNCTION IsValidVisitor(name, id) RETURNS Boolean
+    IF name <> "" AND id <> "" THEN
+        RETURN True
+    ELSE
+        RETURN False
+    END IF
+END FUNCTION
+
+PROCEDURE ViewDailyRecords()
+    INPUT SelectedDate
+    SET DailyCount = 0
+    FOR i = 1 TO TotalRecords DO
+        IF visitorRecords[i].VisitDate = SelectedDate THEN
+            OUTPUT visitorRecords[i]  // name, ID and date
+            SET DailyCount = DailyCount + 1
+        END IF
+    END FOR
+    IF DailyCount = 0 THEN
+        OUTPUT "No Records Available"
+    END IF
+    OUTPUT "Total Visits: " & DailyCount
+END PROCEDURE
